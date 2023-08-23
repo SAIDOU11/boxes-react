@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import boxes from './boxes.jsx';
 import Box from './component/Box.jsx';
 
 const App = () => {
   const [squares, setSquares] = useState(boxes);
 
-  const toggleBoolean = (id) => {
-    console.log(id);
+  const toggle = (id) => {
+    setSquares((prevSquare) => {
+      return prevSquare.map((square) => {
+        return square.id === id ? { ...square, on: !square.on } : square;
+      });
+    });
   };
 
-  const squareElement = squares.map((square) => {
-    return (
-      <Box
-        toggleBoolean={toggleBoolean}
-        id={square.id}
-        key={square.id}
-        on={square.on}
-      />
-    );
-  });
+  const squareElement = squares.map((square) => (
+    <Box
+      toggle={() => toggle(square.id)}
+      id={square.id}
+      on={square.on}
+      key={square.id}
+    />
+  ));
 
   return <>{squareElement}</>;
 };
