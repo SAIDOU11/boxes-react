@@ -3,7 +3,7 @@ import { useState } from 'react';
 const Joke = (props) => {
   const [isShown, setIsShown] = useState(false);
 
-  const toggle = () => {
+  const toggleShown = () => {
     console.log(isShown);
     setIsShown((prevState) => !prevState);
   };
@@ -11,10 +11,12 @@ const Joke = (props) => {
   return (
     <div>
       {props.setup && <h3>{props.setup}</h3>}
-      {isShown && <p>{props.punchline}</p>}
-      <button className="btn" onClick={toggle}>
-        Show Punchline
+      {isShown && <p className="punchline">{props.punchline}</p>}
+
+      <button onClick={toggleShown} className="btn">
+        {isShown ? 'Hide' : 'Show'} Punchline
       </button>
+
       <hr />
     </div>
   );
